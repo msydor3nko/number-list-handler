@@ -3,8 +3,8 @@ version: '3'
 services:
 
   flask:
-    # Dockerfile dir path
-    build: ./docker
+    # Dockerfile dir path (current dir)
+    build: .
     # setup container name
     container_name: number-list-handler
     # create virtual env variables into container
@@ -16,12 +16,12 @@ services:
     # rerun server in failure case
     restart: on-failure
     # Paving the path for files:
-      # `./number-list-handler` – local directory stored project files
+      # `.` – local directory stored project files (`number-list-handler` dir)
       #  `/number-list-handler` – container directory were project files will appear
     volumes:
-      - ./number-list-handler:/number-list-handler
+      - .:/number-list-handler
     # map "external:container" ports:
     ports:
       - "5000:5000"
     # run command
-    command: python main.py
+    command: python app/app.py
