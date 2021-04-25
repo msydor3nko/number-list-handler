@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  flask:
+    # Dockerfile dir path
+    build: ./docker
+    # setup container name
+    container_name: number-list-handler
+    # create virtual env variables into container
+    environment:
+      ## for Flask debug mode (remove in production!)
+      - FLASK_ENV=development
+      ## track the app events in terminal
+      - PYTHONUNBUFFERED=True
+    # rerun server in failure case
+    restart: on-failure
+    # Paving the path for files:
+      # `./number-list-handler` – local directory stored project files
+      #  `/number-list-handler` – container directory were project files will appear
+    volumes:
+      - ./number-list-handler:/number-list-handler
+    # map "external:container" ports:
+    ports:
+      - "5000:5000"
+    # run command
+    command: python main.py
